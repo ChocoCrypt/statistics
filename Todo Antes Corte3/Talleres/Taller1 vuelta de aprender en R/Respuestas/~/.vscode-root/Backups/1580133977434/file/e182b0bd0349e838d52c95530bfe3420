@@ -1,0 +1,9 @@
+file:///root/Semestre2020-1/Estadistica/Tareas/Tarea1%20vuelta%20de%20aprender%20en%20R/Respuestas/punto2.r {"mtime":1580083747541,"ctime":1580083454037,"size":187,"etag":"34hbacmbr61","orphaned":false}
+x<-c(2, 5, 120, 5, 8, 11)
+#pues la solución obvia es crear otro vector y reemplazarlo, pero esto crearia otro espacio de memoria
+x[5] = 7
+x[6] =  8
+x[7] = 11
+x[8] = 3
+x[3] = 12
+print(x)

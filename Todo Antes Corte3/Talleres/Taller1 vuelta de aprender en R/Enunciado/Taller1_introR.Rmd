@@ -1,0 +1,430 @@
+---
+title: 'Taller 1: introducción a R'
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+
+# 1. Introducción y objetivos 
+
+En esta sesión se hace una introducción a la herramienta informática para el análisis estadístico **R**. **R** es un lenguaje de programación en código abierto (free software) y gratuito (freeware) que últimamente está levantando el interés en la academia, investigación e incluso en la industria. Primero se explica brevemente qué es el R y sus diversos entornos para su uso. Además se ofrecen las indicaciones para descargar e instalar el programa, paquetes y entorno de trabajo. Luego se detallan algunas funciones básicas, así como el procedimiento para crear y manipular tablas de datos (data.frame). También se describe cómo se guardan y recuperan los comandos ejecutados en una sesión y el espacio de trabajo. Finalmente, se muestra como se crea y guarda un script o guión para poder abrirlo y ejecutarlo desde otro ordenador o en otra sesión. Al finalizar esta sesión, el estudiante ha de ser capaz de:
+
+- Descargar e instalar los ficheros de: R y el entorno de trabajo Rstudio.
+- Identificar las principales características del entorno de trabajo Rstudio.
+- Iniciar una sesión de trabajo en Rstudio.
+- Crear y manipular una tabla de datos. Guardar y recuperar el histórico de una sesión trabajada y su espacio de trabajo.
+- Crear, guardar y recuperar un script o guión con una secuencia de comandos.
+
+# 2. R, R-Commander y Rstudio
+
+## 2.1 ¿Qué es R, R-Commander y Rstudio?
+
+Aunque para algunas personas R es un software, éste se puede considerar un lenguaje de programación enfocado al análisis estadístico de datos y su representación gráfica. Puede ejecutarse en cualquier ordenador y tiene un soporte online muy amigable y activo (https://www.r-project.org). Proporciona una gran cantidad de herramientas con la capacidad de llamar a otras funciones y de desarrollar nuevas funciones muy sencillas de manejar. Además, su gran capacidad de visualización de datos permite generar gráficos muy variados y de extraordinaria calidad y flexibilidad. Permite su integración con diferentes bases de datos y con otros lenguajes de programación como Matlab, Maple, Mathematica, Python, Perl, SPSS, etc. Además, como es un proyecto abierto y colaborativo, existe un repositorio oficial de paquetes (https://cran.r-project.org/web/packages/). 
+
+**R** permite trabajar con una ventana de interacción con usuario, R-Console. En su entorno básico, **R** no tiene una interfaz tipo ventana. Para obtener los resultados deseados, sus funciones se ejecutan por medio de comandos en su propio lenguaje. Sin embargo, **R** dispone de un módulo adicional (o paquete) llamado **R-Commander**, que proporciona una serie de menús que facilita el uso inicial del programa, sin tener que escribir los comandos, es decir, con el uso del ratón. **R-Commander** es una interfaz gráfica de usuario básica (graphical user interface -GUI-). Sus menús, permiten ejecutar muchas (pero no todas) de las funciones básicas para el análisis estadístico de datos y crear gráficas sin escribir los comandos, es más, genera el código en lenguaje **R** para que se puede ejecutar luego desde la **R-Console** si así se desea. Durante el curso de estadística no usaremos **R-Commander** o directamente **R-Console**. Si se desea más información referente a ficheros, ayudas y manuales, se pueden consultar en su página web (http://www.rcommander.com/). 
+
+Por otra parte, existe un entorno para el desarrollo integrado (integrated development environment -IDE-) llamado **R-studio** que es básicamente una agradable interfaz que incluye una consola, un editor más completo y funcional, una ventana de gráficos, visualización de variables en el espacio de trabajo, entre otras cosas. Está completamente integrado al **R** y al **R-commander**, permite ejecutar el código directamente del editor, gestionar múltiples directorios y ficheros. Durante el curso de estadística, usaremos **Rstudio** como IDE principal.
+
+## 2.2 Instalación de R y Rstudio
+
+Ya que **R** es gratuito, en internet se pueden encontrar muchos sitios para descargar los ficheros necesarios para su instalación. Sin embargo, el sitio oficial de **R**, tiene a disposición la última versión tanto para Windows, Linux y Macb(OS X). **CRAN** (Comprehensive R Archive Network) es una red de servidores web y FTP alrededor del mundo que almacena las versiones más actualizadas de código y documentación para **R** (https://cran.r-project.org/). La instalación suele tener un poco de truco dependiendo del sistema operativo y por su puesto de su versión. Como **R** está constantemente en desarrollo, es difícil definir en este documento los pasos exactos y definitivos para su instalación. Sin embargo, las instrucciones sencillas enumeradas a continuación son la base para una correcta instalación en Windows. Si se quiere instalar en otra plataforma o se tiene algún inconveniente, lo mejor que se puede hacer es consultar los foros y preguntas frecuentes del **CRAN**. La versión más actualizada de **R** (para Windows) se puede descargar desde http://cran.r-project.org/ siguiendo la ruta:
+
+`Download R for Windows`->`base`->`Download R 3.x.x for Windows`
+
+Se ejecuta el fichero dejando todas las opciones de instalación por defecto. En la Figura 1 se muestra el icono de acceso directo resultante después de la instalación.
+
+![Figura 1. Icono de acceso a R.](Ricon2.png)
+
+**Rstudio** se descarga desde http://rstudio.org/download/desktop. Se ejecuta el fichero de instalación seleccionando de nuevo todas las opciones de configuración por defecto. El icono de acceso directo se muestra en la Figura 2.
+
+![Figura 2. Icono de acceso a Rstudio.](RstudioIcon.png)
+
+## 2.3 Primeras impresiones de Rstudio
+
+Rstudio es un entorno libre y de código abierto para el desarrollo integrado (IDE) de R. Se puede ejecutar en el escritorio o incluso a través de Internet mediante el servidor Rstudio. Este programa aúna todos los entornos y asume la filosofía de los expresiones, pero aportando algunas ‘ayudas’ que hacen más llevadero el día a día. Está organizado en cuatro zonas de trabajo distintas, como se aprecia en la Figura 3.
+
+![Figura 3. Interfaz de usurio de Rstudio](01-rstudio.png)
+
+En la zona superior izquierda pueden abrirse y editarse uno o varios ficheros con código **R** (scripts) a la vez. En la zona inferior izquierda hay una consola de **R** en la que pueden ejecutarse comandos de **R** individualmente.
+
+La zona superior derecha tiene dos pestañas: *Workspace*, donde aparece la lista de los objetos creados en memoria. *History*, que contiene el histórico de las líneas de código ejecutadas en **R**. La zona inferior derecha dispone de cuatro pestaí±as: *Files*, que da acceso al árbol de directorios y ficheros del disco duro. *Plots*, donde aparecen los gráficos creados en la consola. *Packages*, que facilita la administración de los paquetes de **R** instalados en la máquina. *Help*, en el que se abren las páginas de ayuda. 
+Desde la barra del Menú principal se puede acceder a todos los menús de Rstudio. Los menús: *Archivo*, *Edición*, *Ver* y *Ayuda* son habituales en los programas bajo Windows. El resto de menús son específicos de Rstudio estos permiten gestionar la interfaz, es decir, editar los ficheros, importar datos, instalar paquetes, gestionar las gráficas, etc. Pero en ningún momento permite ningún cálculo estadístico o representación gráfica, todo esto lo debemos hacer por medio de comandos, tal como en **R** básico.
+
+# 3. Primeros pasos con R (en Rmarkdown)
+
+Inicialmente se describirán los primeros pasos para introducir datos, realizar operaciones, calcular funciones y representar gráficamente los datos y el análisis estadístico utilizando el lenguaje **R**. Finalmente, se mostrará cómo se guarda una sesión.
+
+## 3.1 Rmarkdown
+A continuación usaremos para los ejemplos, uno de los añadidos más interesantes de **Rstudio**: **Rmarkdown**. En Rstudio se pueden crear notebooks de R combinandolo con markdown. Esto permite elaborar documentos que pueden ser reproducibles y que se pueden exportar a html o PDF. 
+
+Para crear una sección de código (o Chunk), basta con ir al menú *Code* -> *Insert Chunk*, o simplemente presionar la combinación de teclas `CTRL + ALT + I`. A continuación, se muestra un ejemplo de una gráfica.
+
+
+```{r}
+plot(cars)
+```
+
+## 3.2 R como calculadora básica
+
+En **R** se pueden realizar operaciones de cálculo numérico básicas tales como: suma `+` resta `-`, multiplicación `*`, división `/`, división entera `%/%`, residuo `%%`, potencia `^`, etc. Además, están disponibles las operaciones lógicas como: igual `==`, mayor que `>`, menor que `<`, mayor o igual que `>=`, menor o igual que `>=`, diferente `!=`, and `&`, or `||`, etc. Por ejemplo:
+
+```{r}
+2+2
+2+3*5/6+4^2
+31 %% 7 # residuo
+202 %/% 10 # divison entera
+```
+
+Los operadores <-, o = se utilizan para hacer asignaciones, es preferible el uso de la primera ya que el signo igual tendrá en algunas ocasiones connotaciones lógicas. La variable se crea en el mismo instante de la asignación. Es más, no se puede declarar con anterioridad y dejarlas vacías. A continuación se pueden ver algunos ejemplos de asignación de variables.
+
+```{r}
+x <- 4
+y = 6
+z = x+y # NO muestra el resultado 
+z = x+y; z # SI muestra el resultado
+```
+Otra forma de mostrar el resultado es utilizando paréntesis:
+```{r}
+(z=x+y)
+```
+
+Algo particular de R, es que los nombres de las variables también pueden contener periodos (.), por ejemplo:
+```{r}
+x.inicial <- 4
+x.final = 10
+x.dif = x.final-x.inicial; x.dif
+```
+Al comparar dos variables, el resultado es una variable lógica indicando si la declaración es verdadera o falsa. Por ejemplo:
+```{r}
+x==y
+x!=y
+x>y
+```
+**R** también tiene algunas constantes integradas: π (`pi`), las letras del alfabeto en inglés en mayúsculas y minúsculas (`LETTERS`, `letters`), entre otras. Por ejemplo, se puede calcular el perímetro de la circunferencia de la tierra en el Ecuador, sabiendo que su radio es 6378Km:
+```{r}
+2*pi*6378
+```
+Adicionalmente, existen muchas funciones matemáticas integradas en R, entre ellas podemos destacar: La raiz cuadrada `sqrt()`, función exponencial y logarítmicas `exp()`, `log()`, `log10()`, funciones trigonométricas `sin()`, `cos()`, `tan()`, valor absoluto `abs()`, funciones de redondeo `ceiling()`, `floor()`, `trunc()`, `round()`, etc. Acontinuación se pueden ver algunos ejemplos:
+```{r}
+sin(45*pi/180)
+sqrt(81)
+exp(2)
+log(20)
+```
+
+***
+**Tips**
+
+* Para ejecutar las instrucciones que están en una línea, se pulsa la tecla `Enter` en la consola o `Ctrl + Enter` en el editor.
+* Todo lo precedido por almohadillas (#) **R** lo considera un comentario y no lo interpreta.
+* Varias instrucciones se pueden ejecutar en una misma línea si se separan por punto y coma (;).
+* Para visualizar los datos asignados a una variable, se introduce el nombre de la variable. 
+* Se pueden recuperar líneas de instrucciones introducidas anteriormente pulsando la tecla con la flecha ascendente del teclado, a fin de volver a ejecutarlas o modificarlas.
+* Para abortar la ejecución de una instrucción y devolver el control al usuario, basta pulsar la tecla `Esc` del teclado. Así recuperaremos el símbolo (>) para volver a escribir instrucciones.
+
+***
+
+## 3.2 Vectores y matrices
+
+El uso de vectores y matrices es fundamental para poder organizar los datos de una forma adecuada para su posterior análisis estadístico. Por lo tanto, es necesario saber como definirlos, utilizarlos y manipularlos en **R**.
+
+### 3.2.1 Definición de vectores
+Para construir un vector primero se define un nombre (por ejemplo *x*), seguidamente se ingresa el operador de asignación y después se introduce la letra `c` (de concatenar). Finalmente, se escriben las componentes del vector entre paréntesis y separadas por comas.
+```{r}
+x <- c(1,2,3,4,5); x
+```
+También se pueden introducir los datos por teclado con la instrucción `scan()`. Los valores se teclean dejando espacios en blanco, cada vez que se pulsa la tecla `Enter` se cambia de línea y se puede continuar introduciendo valores. Para terminar se pulsa `Enter` en una línea vacía:
+```{r}
+y = scan() # Observar la consola para introducir datos
+
+# He introducido:
+# 1: 1 2 3
+# 4: 4 5 6
+# 7: 7 8 9
+```
+Una vez el vector este definido, mediante la función `length()` se puede conocer su longitud (número de elementos que lo componen):
+```{r}
+length(y)
+```
+Si el vector es una secuencia de valores enteros (por ejemplo, de 1 a 10), se puede definir de la siguiente manera:
+```{r}
+x1 <- 1:10; x1; length(x1)
+```
+Un vector también se puede definir como una secuencia de valores equidistantes mediante la función `seq()`. Como información adicional se han de definir el valor inicial del vector (`from=`), el valor final (`to=`) y la distancia entre valores (`by=`) o la longitud del vector (`length=`):
+```{r}
+x2 <- seq(from=2, to=18, by=2); x2; length(x2)
+```
+```{r}
+x3<-seq(from=2,to=18,length=30); x3; length(x3)
+```
+O simplemente:
+```{r}
+x2<-seq(2,18,2); x2; length(x2)
+```
+También se pueden definir como repeticiones de un valor o de un vector definido con anterioridad:
+```{r}
+x4<-rep(1,5); x4; length(x4)
+```
+```{r}
+rep(x,length=8)
+```
+Incluso, se puede definir mediante una fusión de los comandos anteriores:
+```{r}
+x5<-c(1:5,7:10,seq(-7,5,by=2),rep(x,length(3))); x5; length(x5)
+```
+
+
+3.2.2 Manipulación de vectores
+Si se quiere acceder a un elemento específico de un vector, se introduce el nombre del vector y la posición del elemento entre corchetes. Para acceder a más de un elemento, se tiene que crear primero un vector con sus posiciones.
+```{r}
+x5[10] #Decimo elemento del vector x5
+x5[c(10,15,1)] # Décimo, decimoquinto y primer elemento de x35
+```
+Uno o varios elementos se pueden eliminar de un vector si se introduce la posición del elemento precedido del signo `-` y entre corchetes:
+```{r}
+x6<-x5[-10]; x6; length(x6)
+```
+```{r}
+x7<-x5[c(-8,-7,-2,-17)]; x7
+```
+```{r}
+x7<-x5[-c(8,7,2,17)]; x7
+```
+
+Insertar un nuevo elemento en un vector se puede hacer mediante de la creación de un nuevo vector utilizando los elementos del vector anterior:
+```{r}
+x8<-c(x6[1:4],20,x6[5:length(x6)]); x8; length(x8)
+```
+Las operaciones y funciones vistas anteriormente para variables escalares pueden aplicarse a vectores, con la salvedad que las operaciones se harán a cada componente del vector:
+```{r}
+sin(c(0,30,45,60,90)*pi/180) # Seno de varios ángulos dados en grados
+```
+```{r}
+exp(x6) # Exponencial de un vector definido previamente
+```
+```{r}
+x5>1
+```
+Por otra parte, también se puede acceder a los elementos de un vector que cumplen cierta condición. Por ejemplo, si se desea conocer el valor de los elementos de x5 que son menores que 0, se utiliza la función `which()` primero para saber la posición de los elementos que cumplen la condición:
+```{r}
+ind <- which(x5<0); ind
+```
+```{r}
+x5[ind]
+```
+O simplemente,
+```{r}
+x5[x5<0]
+```
+Además de la función length(), algunas de las funciones básicas para usar vectores son las siguientes:
+```{r}
+sum(x8) #Suma de los elementos
+range(x8) # Minimo y maximo
+summary(x8) # Resumen estadistico
+sort(x8) # Organiza los elementos de menor a mayor
+order(x8) # Muestra las posiciones al organizarlo de menor a mayor
+rev(x8) # Invierte los elementos del vector
+```
+Es muy frecuente en Estadística tener un conjunto de variables que describen a una serie de individuos, y que para un individuo concreto (o varios) no se disponga del valor de una (o varias) de esas variables. **R** tiene en cuenta esta posibilidad, en estos casos aparece el valor faltante como `NA` (Non Available, No Accesible) y algunas de las funciones básicas para tratar este tipo de datos son las siguientes:
+```{r}
+v1 <- c(7,0,NA,8,5,6,NA,4);v1 # Crea un vector con dos NA's
+is.na(v1) # Para saber en dónde están esos NA
+sum(v1) # Como faltan valores, la suma no se ejecuta
+sum(v1,na.rm=TRUE) # Realiza la operación sin considerar NA’s
+```
+En los vectores también se pueden almacenar cadenas de caracteres, la sintaxis es similar, la única diferencia es que cada cadena de caracteres ha de ir entre comillas dobles:
+```{r}
+v <- c("Jesus","Jaime","Javier") ; v
+```
+
+***
+**Tips**
+
+- A las funciones en **R** se le puede agregar atributos.
+- El atributo `na.rm=TRUE` da la orden de que la función se ejecute sin tener en cuenta los datos No Accesibles
+- `na` significa No Accesible, `rm` significa remove (quitar) y `TRUE` (verdadero). Esta última debe ir siempre en mayúsculas porque de lo contrario no lo reconoce.
+
+***
+
+### 3.2.3 Definición de matrices
+Una matriz en **R** es un conjunto de objetos ordenados por filas y columnas. Un array en **R** es lo mismo, salvo que puede tener más de dos dimensiones. En general, una matriz se puede crear de dos formas: usando la función `matrix` o la función `array`. Manipular los datos que se encuentran dentro de una matriz es de la misma forma que con los vectores, la diferencia es que ahora se ha de tener en cuenta la posición de cada elemento en función de filas y columnas.
+```{r}
+m1 <- matrix(1:20, nrow = 5); m1
+```
+```{r}
+m2 <- array(x5,dim=c(7,3));m2
+```
+```{r}
+m1[2,3] # Visualiza el valor del elemento de la fila 2 y columna 3
+m1[2,c(1:4)] # Visualiza el valor del todos los elementos de la fila 2
+m1[c(1:5),2] # Visualiza el valor del todos los elementos de la columna 5
+```
+
+## 3.3 Estructuras de datos
+
+La forma más común de almacenar datos es hacer uso de tablas (`data.frames` en **R**). Esto es como una matriz, formada por filas y columnas, con la diferencia que cada columna es una variable de tipo diferente. En una tabla pueden coexistir columnas con información numérica, entera, decimal, otras con información cualitativa de caracteres, otras lógicas, etc. Lo más frecuente es que estas tablas tengan dos dimensiones (filas y columnas), pero en algún caso puede tener más de dos dimensiones. Para construir una estructura de tipo `data.frame` se utilizará la función `data.frame(v1,v2,...,v(n-1),vn)`. Donde cada vector (`vi`) conteniene todos los datos de cada variable.
+
+```{r}
+x = c(2,2,1,2,1,1,1,2,2,1,1,2)
+n = length(x);n
+sex = rep("Girl",n); sex
+sex[x==2]="Boy"; sex
+age <- c(3,6,4,2,8,9,5,4,4,7,1,10) ; age
+table <- data.frame(age,sex); table
+```
+El nombre que se le asocia a cada columna o variable dentro de la estructura es el nombre que tenga los vectores. Para referirnos a cada variable de la estructura de datos por separado se utiliza el signo `$` entre el nombre del data.frame y el nombre de la variable:
+```{r}
+table$age
+```
+```{r}
+table$sex
+```
+Si no se desea estar utilizando en todo momento el signo `$`, se puede utilizar el comando `attach()`. Ahora podremos acceder a cualquier variable de la tabla directamente, únicamente mediante el nombre de su variable.
+```{r}
+attach(table)
+sex
+```
+
+## 3.4 Funciones gráficas básicas
+Otra gran ventaja de R son sus capacidades gráficas. Los gráficos se pueden exportar en diferentes formatos (pdf, eps, jpg, etc.). Para ver una selección de gráficos realizados con `R` puede ejecutarse un programa demostración mediante la siguiente instrucción:
+```{r}
+# demo("graphics") # Esta comentada para no hacer muy grande el documento
+```
+La función básica y quizás la más usada para generar gráficas de series o datos es `plot()`. Previamente se ha de definir el vector de los datos que serán representados en el eje de las ordenadas (eje y) y si es necesario, el vector de los datos del eje de las abscisas (eje x). Como atributo se especifica el tipo de gráfica (puntos, líneas, ambos, etc). Un ejemplo sencillo es el siguiente:
+```{r}
+x=seq(0,2*pi,0.01)
+y=sin(x)
+plot(x,y,type='l')
+```
+También es frecuente el uso de la función `lines()`, por ejemplo.
+```{r}
+x=seq(0,2*pi,0.01)
+z=cos(x)
+plot(x,y, type='l')
+lines(x,z)
+```
+Para generar múltiples gráficas en una sola ventana se puede hacer de la siguiente forma:
+```{r}
+x=seq(0,2*pi,0.01)
+y=sin(x); z=cos(x)
+plot(x,y,type='l')
+par(col='blue')
+lines(x,z)
+abline(h=0.5); abline(v=3)
+```
+
+## 3.5 Guardando y recuperando sesión
+Cuando se termina una sesión de R, tenemos la opción de guardar el espacio de trabajo (workspace) o el historial (history). El espacio de trabajo incluyen todos los objetos definidos por el usuario, estos objetos se van almacenando en memoria intermedia mientras se está trabajando, pero se elimina al cerrar una sesión. Por otra parte, el historial es el conjunto de todos los comandos que se han utilizado en la sesión. Si se quiere guardar un objeto en concreto (por ejemplo, el vector x) en el fichero MyData.Rdata, se utiliza la siguiente instrucción:
+
+```{r eval=FALSE}
+save(x,file='MyData.Rdata')
+```
+
+Para guardar todos los objetos existentes en el espacio de trabajo:
+```{r eval=FALSE}
+save.image('MyData.Rdata')
+```
+
+Recuperar todos los objetos previamente guardados en un fichero:
+```{r eval=FALSE}
+load('MyData.Rdata')
+```
+
+Si se desea guardar o cargar un historial de comandos:
+```{r eval=FALSE}
+savehistory('MyData.RHistory')
+loadhistory('MyData.RHistory')
+```
+
+***
+**Tips**
+
+- Para limpiar la consola, usamos `Ctrl+L`
+- Para visualizar los objetos almacenados en el espacio de trabajo, `ls()`
+- Para eliminar un objeto, `rm(name)`
+- Para eliminar todos los objetos, `rm(list=ls())`
+- Para visualizar el directorio de trabajo (working directory), usamos `getwd()`
+- Para ajustar el directorio de trabajo al especificado, `setwd("midirectorio")`
+
+***
+
+
+3.6 Scripts o guiones, la forma de organizar la sesión
+
+Hasta ahora se ha trabajado directamente en la consola de R o Rstudio (o en el notebook de markdown) y se ha definido cómo se guardan todas las instrucciones que se han ejecutado (correctas y erróneas). Sin embargo, esta forma de guardar una sesión no es la más aconsejable. Se recomienda, que el trabajo que se realice en cualquier entorno de programación sin ser R la excepción, se guarde en forma de scripts o guiones. Un script no es más que un documento d texto plano que contiene el conjunto de instrucciones o código que se desea ejecutar. En él, se pueden registra comentarios de cada instrucción o de un conjunto de ellas. De esta manera, nuestro código queda guardado de una forma organizada y clara para su entendimiento en una futura sesión, un ejemplo se puede ver en la Figura 3. Para crear un nuevo script, nos dirigimos a la barra de menú con el ratón, se selecciona `Ficheros`, `Nuevo fichero` y finalmente `R script`. También mediante el teclado, pulsando simultáneamente `Ctrl+Shift+N`. Est documento se puede editar, modificar, guardar y ejecutar (todas las instrucciones, parte de ellas o las línea deseadas).
+
+![Figura 3. Script de Rstudio.](RstudioEditor.png)
+
+***
+**Tips**
+
+* Para ejecutar una línea de instrucciones desde la ventana R-script de R-Studio
+  + Presione [Ctrl+Intro] en el teclado estando el cursor en cualquier posición de esa línea.
+  + Presione el botón âEjecutarâ con el ratón. 
+  + Si se quiere ejecutar todo el script, presione en el teclado [Ctrl+A] y luego [Ctrl+Intro]. 
+* Para ejecutar una línea de instrucciones desde la ventana R-script de R-Commander
+  + Presione [Ctrl+R] en el teclado estando el cursor en cualquier posición de esa línea.
+  + Presione el botón âEjecutarâ con el ratón. • Si se quiere ejecutar todo el script, presione en el teclado [Ctrl+A] y luego [Ctrl+R].
+* Todo el texto precedido por el carácter # es ignorado por R, por lo tanto, se utiliza para introducir comentarios.
+
+***
+
+## 3.7 Material Extra
+
+En los siguientes sitios web, se pueden encontrar los ficheros necesarios para la instalación del R, el R-Commander y el Rstudio, además varios tutoriales que ayudarán a la ampliación de la información presentada en esta guía de prácticas.
+
+* https://www.r-project.org/
+* https://www.rstudio.com/products/rstudio/features/
+* http://www.rcommander.com/
+* http://www.tutorialr.es/es/index.html
+* https://es.wikipedia.org/wiki/R_(lenguaje_de_programaci%C3%B3n)
+
+# 4. Ejercicios
+
+#### Ejercicio 4.1
+Dado un vector x = (x1, x2, . . . , xn), crear un vector y que contenga los índices de x, es decir, y = (1, 2, . . . , n). Hazlo con un ejemplo determinado. 
+
+#### Ejercicio 4.2
+Introducir el vector x<-c(2, 5, 120, 5, 8, 11). Supongamos que me he equivocado y he olvidado el número 7 entre el 5 y el 8 (índices 4 y 5 resp.). ¿Cómo arreglarlo? También he olvidado el último número: después del 11, viene un 3. Finalmente, resulta que el valor 120 es un error tipográfico, en realidad es un 12. Llevar a cabo las correcciones pertinentes... 
+
+#### Ejercicio 4.3
+Generar dos vectores x e y tal que x contenga los valores de 0 a 5 con un incremento de 0.01, y tal que y sea igual a sen(x). A continuación, realizar la gráfica de y en función de x con la instrucción plot(x,y). 
+
+#### Ejercicio 4.4
+Generar un vector que contenga 12 valores, los primeros 4 siendo igual a 0.5, los 4 siguientes a 1.5, y los 4 últimos a 3.
+
+#### Ejercicio 4.5
+Introducir los siguientes vectores: x<-c(1, 3, 5, 7, 9), y<-c(2, 3, 5, 7, 11, 13). Ejecuta las siguientes instrucciones y explica que realiza cada una:
+
+- x+1
+- y*2
+- c<-(length(x),length(y))
+- x+y
+- sum(x>5)
+- sum(x[x>5])
+- sum(x[x>5 | x>3])
+- y[y>7]
+
+#### Ejercicio 4.6
+Encontrar como calcular la media de un vector $x$ sin utilizar la función mean
+
+#### Ejercicio 4.7
+Encontrar una manera alternativa (no utilizar sd) de calcular la varianza de un vector x, utilizando la fórmula:
+$var(x)=\bar{x^2}-(\bar{x})^2$
+
+#### Ejercicio 4.8
+A lo largo de un año, los importes de las facturas mensuales del celular han sido: 23, 33, 25, 45, 10, 28, 39, 27, 15, 38, 34, 29.
+Escriba un script en R en el que se cree una tabla de datos con meses y cargos. El script debe responder automáticamente las siguientes preguntas, incluso si cambia cualquier valor.
+
+1. ¿Cúanto se ha gastado en total en el año?
+2. ¿En qué mes se ha gastado menos dinero? ¿Cuánto ha sido? 
+3. ¿En qué mes se ha gastado más dinero?¿Cuánto ha sido? 
+4. ¿En cúales meses se ha gastado más que el promedio
+
+#### Ejercicio 4.9
+Un geyser es un nacimiento de agua hirviente que de vez en cuando se vuelve inestable y expulsa agua y vapor. El geyser Old Faithful en el parque de Yellowstone en Wyoming es probablemente el más famoso del mundo. Los visitantes del parque se acercan al emplazamiento del geyser intentando no tener que esperar demasiado para verlo estallar. Los servicios del Parque colocan un cartel donde se anuncia la próxima erupción. Es por lo tanto de interés estudiar los intervalos de tiempo entre dos erupciones conjuntamente con la duración de cada erupción. En el fichero `geyser.txt` están los datos correspondientes a la duración de 222 erupciones, así como el intervalo de tiempo hasta la siguiente erupción, durante los meses de agosto 1978 y agosto 1979. Las unidades de medición son ms. 
+- Importar los datos, realizar una exploración gráfica, ¿qué características presentan los datos? 
+- ¿Puedes identificar dos grupos de erupciones? Crea una variable grupo, que indique a qué grupo se asigna cada erupción. 
+

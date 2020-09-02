@@ -1,0 +1,380 @@
+---
+title: "Introducción a la regresión lineal"
+output:
+  html_document:
+    df_print: paged
+---
+
+## Regresión lineal
+
+La regresión lineal es una herramienta estadística que nos aporta la habilidad de estimar la relación matemática entre una variable dependiente (o respuesta, normalmente $y$ ) y una variable independiente (o predictor, normalmente $x$ ). Su objetivo principal es utilizar la información obtenida sobre un fenómeno para predecir su comportamiento en el futuro. Esta información suele ser organizada por parejas de valores observados y representada gráficamente en una nube de puntos o diagrama de dispersión.
+
+*Ejemplo 1*: La relación entre el tamaño del lote en la fábrica de cierto producto y las horas de trabajo necesarias está dada por la siguiente tabla.
+$$
+\begin{array}{cc}
+\hline \text { Lotes } & \text { Horas } \\
+\hline 1 & 10 \\
+2 & 20 \\
+3 & 15 \\
+4 & 40 \\
+5 & 25 \\
+\hline
+\end{array}
+$$
+
+### Modelo de regresión lineal simple
+
+La regresión lineal simple consiste en encontrar la línea recta $(\hat{y}=\beta_1 x+ \beta_0)$ que mejor se ajuste a través de los puntos. La línea que mejor se ajusta se llama línea de regresión o recta de regresión. En la Figura se puede apreciar la gráfica de dispersión de los datos del ejemplo 1 (puntos en rojo). La línea diagonal azul es la línea de regresión y representa la predicción en $y$ para cada valor posible de $x$. Las líneas verticales desde los puntos hasta la línea de regresión representan los errores de predicción $\left(y_{i}-\hat{y}_{i}\right) .$ Como se puede ver, el punto en $x=1$ está muy cerca de la línea de regresión, por lo tanto, su error de predicción es pequeño. Por el contrario, el punto en $x=4$ está mucho más lejos de la línea de regresión y por lo tanto su error de predicción es grande.
+![Ilustración de regresión lineal simple](images/ilustracionRL.png)
+
+La línea recta que se ajuste mejor a los datos es aquella para la cual los $n$ errores de predicción (uno por cada punto de datos) son tan pequeños como sea posible en sentido general. Una forma de lograr este objetivo es invocar el "criterio de mínimos cuadrados", que dice "minimizar la suma de los errores de predicción al cuadrado". Es decir, se ha de buscar los valores de $\beta_1$ (pendiente) y $\beta_0$ (intercepción) tal que la suma del cuadrado de los errores de predicción $SSE=\sum_{i=1}^{n}\left(y_{i}-\hat{y}_{i}\right)^{2}$ sea lo más pequeña posible. Por lo tanto, se ha de minimizar la ecuación:
+$$
+SSE=\sum_{i=1}^{n}\left(y_{i}-\left(m x_{i}+b\right)\right)^{2}
+$$
+Derivando e igualando a cero, se obtiene que:
+$$
+\hat{\beta_1}=\frac{\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right)}{\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}
+$$
+$\mathrm{y} \quad \hat{\beta_0}=\bar{y}-\hat{\beta_1} \bar{x}$
+
+Para el ejemplo 1, se tiene:
+
+$$\begin{array}{|c|c|c|c|c|c|}
+\hline x & y & x-\bar{x} & (x-\bar{x})^{2} & y-\bar{y} & (x-\bar{x})(y-\bar{y}) \\
+\hline \hline 1 & 10 & -2 & 4 & -12 & 24 \\
+\hline 2 & 20 & -2 & 1 & -2 & 2 \\
+\hline 3 & 15 & 0 & 0 & -7 & 0 \\
+\hline 4 & 40 & 1 & 1 & 18 & 18 \\
+\hline 5 & 25 & 2 & 4 & 3 & 6 \\
+\hline \bar{x}=3 & \bar{y}=22 & & \sum_{i=1}^{5}\left(x_{i}-\bar{x}\right)^{2}=10 & & \sum_{i=1}^{5}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right)=50 \\
+\hline
+\end{array}$$
+
+Por lo tanto, $\hat{\beta_1}=\frac{50}{10}=5 \mathrm{y} \hat{\beta_0}=22-5 \times 3=7 .$ De esta manera la recta de regresión está dada por: $\hat{y}=5 x+7$
+
+### Modelo de regresión exponencial
+
+En otros casos, la línea que une los valores obtenidos no se aproxima a una recta sino a una función exponencial. En otras palabras, se asemeja a una función tipo $y=\alpha e^{\beta x} .$ Por lo tanto, la regresión consiste en encontrar los valores de $\alpha$ y $\beta$ que mejor se ajusten a los datos. En este tipo de regresiones también podemos encontrar el valor del coeficiente de determinación $R^{2},$ el cual sigue el mismo criterio que para la regresión lineal (cuanto más cerca esté de 1, la aproximación será más precisa).
+
+Aunque no lo parezca, esta aproximación no es más difícil que la lineal. Debido a las propiedades de los logaritmos neperianos, una relación exponencial se puede convertir en una relación lineal de una forma muy sencilla:
+$$
+\ln (y)=\ln \left(\alpha e^{\beta x}\right)=\ln (\alpha)+\ln \left(e^{\beta x}\right)=\ln (\alpha)+\beta \ln \left(e^{x}\right)=\ln (\alpha)+\beta x
+$$
+La solución al problema inicial sería la regresión lineal entre $x$ y $\ln (y)$
+
+Retomando el ejemplo de la introducción de esta sesión sobre el registro del número de días que han pasado desde que se ha detectado un virus informático y el número de ordenadores infectados, se puede observar en el diagrama de dispersión que la relación entre las dos variables no es lineal, tiene un comportamiento exponencial.
+
+$$\begin{array}{cc}
+\hline \text { Dias } & \text { Ordenadores } \\
+\hline 1 & 255 \\
+2 & 1500 \\
+4 & 2105 \\
+5 & 5050 \\
+8 & 16300 \\
+10 & 45320 \\
+11 & 58570 \\
+14 & 375800 \\
+16 & 1525640 \\
+20 & 2577000 \\
+\hline
+\end{array}$$
+
+Al realizar el diagrama de dispersión entre la variable Días y el logaritmo a la variable Ordenadores log(Ordenadores) se observa que la relación tiene una tendencia lineal.
+
+![Ilustración de regresión exponencial](images/ilustracionRL_EXP.png)
+
+Por lo tanto, siguiendo el criterio de mínimos cuadrados, se obtiene:
+
+$$\hat{\beta_1}=\beta=\frac{\sum_{i=1}^{10}\left(x_{i}-\bar{x}\right)\left(y_{i}^{*}-\bar{y}^{*}\right)}{\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}=\frac{171.0931}{354.9}=0.4821$$
+$$\hat{\beta_0}=\ln (\alpha)=\bar{y}^{*}-\hat{\beta_1} \bar{x}=10.2269-0.4821 \times 9.1=5.8399$$
+$$\alpha=e^{\hat{\beta_0}}=e^{5.8399}=343.7072$$
+
+donde $\bar{y}^{*}$ es el logaritmo de la variable Ordenadores. De esta manera, la línea de regresión está dada por:
+$\ln (y)=0.4821+5.8399 x,$ o por $y=343.7072 e^{0.4821 x}$
+
+### Una forma de evaluar la exactitud del modelo de regresión
+
+Existen varias formas de evaluar que tanto se ajusta nuestro modelo a los datos, la bondad de ajuste o calidad de la regresión la determinan normalmente el coeficiente de determinación $\left(r^{2}\right)$ o el coeficiente de correlación (o Pearson) $(r)$. Estos números característicos de cada regresión indican lo bien que se ajusta la línea a los datos. Por ejemplo, $R^{2}=0.85$ quiere decir que el $85 \%$ de la variación total en y se puede explicar por la relación lineal entre $x$ e $y$. En consecuencia, cuanto más se acerque al $1,$ mejor se ajustará a los valores. En ese caso, la línea pasa exactamente por cada punto y es capaz de detallar toda la variación. Cuanto más lejos esté de los puntos, peor será la aproximación. El coeficiente de determinación es la relación entre la variabilidad explicada por la regresión y la variabilidad total. Se calcula mediante la siguiente fórmula:
+$$r² = \left( \frac{\hat{\beta_1}  S_{xy}}{S_{yy}} \right)=1-\frac{SSE}{S_{yy}}=\frac{\sum_{i=1}^{n}\left(\hat{y}_{i}-\bar{y}\right)^{2}}{\sum_{i=1}^{n}\left(y_{i}-\bar{y}\right)^{2}}$$
+donde $\hat{y}_{i}$ es la estimación del valor de $y_{i}$. Recordemos que,
+
+$$\begin{aligned}
+&\hat{\beta}_{1}=\frac{S_{x y}}{S_{x x}}, \text { donde } S_{x y}=\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right) \quad \text{y} \quad S_{x x}=\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}\\
+&\hat{\beta}_{0}=\bar{y}-\hat{\beta}_{1} \bar{x}
+\end{aligned}$$
+
+En el ejemplo dado
+$$\begin{array}{|c|c|c|c|c|}
+\hline x & y & \hat{y}=5 x+7 & (\hat{y}-\bar{y})^{2} & (y-\bar{y})^{2} \\
+\hline \hline 1 & 10 & 12 & 100 & 144 \\
+\hline 2 & 20 & 17 & 25 & 4 \\
+\hline 3 & 15 & 22 & 0 & 49 \\
+\hline 4 & 40 & 27 & 25 & 324 \\
+\hline 5 & 25 & 32 & 100 & 9 \\
+\hline \bar{x}=3 & \bar{y}=22 & & \sum_{i=1}^{5}\left(\hat{y}_{i}-\bar{y}\right)^{2}=250 & \sum_{i=1}^{5}\left(y_{i}-\bar{y}\right)^{2}=530 \\
+\hline
+\end{array}$$
+
+Por lo tanto, $r^{2}=\frac{250}{530}=0.4717 \mathrm{y} r=\pm \sqrt{r^{2}}=\sqrt{0.4717}=0.6868,$ donde el signo está determinado por la pendiente de la recta de regresión.
+
+### Regresión lineal con R y Rstudio
+
+A continuación se describe detalladamente el procedimiento para realizar una regresión lineal utilizando $R$. Los datos que se utilizarán son el dataset `mtcars` que se encuentra por defecto en las librerías base de R. 
+
+#### Cargar datos
+
+Simplemente carguemos el dataset usando la instrucción `data`:
+
+```{r}
+
+
+```
+
+Si se es engorroso tener que invocar la variable por medio del nombre de la estructura Datos, más el símbolo dólar $\$,$ más el nombre propio de la variable $\mathrm{mpg}$, se puede utilizar la función `attach()` para vincular todas las variables de la estructura de datos a la ruta de búsqueda de $R$, es decir, las variables se pueden invocar
+solo por sus nombres.
+
+```{r}
+
+
+```
+
+
+#### Diagramas de dispersión
+Un diagrama de dispersión permite ver claramente si existe alguna relación entre las variables que estamos estudiando. Este dispersión se puede obtener mediante la función plot(). Para ver un ejemplo haremos un diagrama de dispersión de los caballos de potencia (`hp` ( $y$ )) y el desplazamiento (`disp` $(x)$ ).
+
+```{r}
+
+
+```
+
+---
+
+**Algunos Trucos**
+
+* Con la función `plot()` se generan gráficas, existen diferentes atributos que permiten mejorar su visualización, por ejemplo:
+
+* Asignando un valor a `pch` se escoge el símbolo para representar los puntos (entero entre 0 y 25, o símbolos comunes como: `*, , ,o, O,0,+,-,-, |`
+
+* `lwd` define el grosor de las lineas en la gráfica. 
+
+* `col` asigna un color para los puntos (en este caso, para el color rojo, se puede poner `red` o `2` )
+
+* `cex` determina el factor por el que se multiplica el tamaño del punto original.
+
+* `plot(x,y)` y `plot(y∼x) ` generan la misma gráfica, $x$ en el eje de las abscisas e $y$ en el eje de las ordenadas del plano XY
+
+---
+
+```{r}
+
+```
+
+Si se desea ver de forma general, los diagramas de dispersión entre todas las combinaciones de las variables
+de una estructura de datos, se utiliza la función `pairs()`.
+
+```{r}
+
+```
+
+---
+
+**Algunos Trucos**
+
+Con la función `pairs()` se crea una matriz gráfica de la correlación entre todas las variables
+numéricas del conjunto de datos
+
+• El atributo `upper.panel = NULL` muestra la matriz inferior de gráficas, evitando la
+duplicidad de las mismas.
+
+• Crear la gráfica en color también es posible con la opción `bg = c()` listando los colores
+elegidos separados por comas y entre “”.
+
+---
+
+#### Modelo lineal de los mínimos cuadrados
+
+El modelo de los mínimos cuadrados implementado en $R$ consiste en aproximar una serie de valores con un polinomio del mínimo grado posible. Si los valores se asemejan a una recta, la función de la línea de regresión será de la forma $y=\hat{\beta_1} x+\hat{\beta_0},$ de primer grado. Este polinomio se consigue mediante la función `lm(y ∼ x)`
+Si el modelo se quiere utilizar después, por ejemplo para estimar algún valor, representar gráficamente los puntos y su recta, etc., éste se debe asignar a un objeto con un nombre escogido por el usuario. Por ejemplo, queremos buscar la relación existente entre las variables `disp` y `hp`.
+
+```{r}
+
+```
+
+Interpretando los resultados obtenidos, se deduce que la recta de regresión es $y=34.8870+0.3706 x,$ donde $x=$ `disp` e $y=$ `hp` . El objeto model guarda todos los parámetros del modelo. Por ejemplo, otra forma de conocer los valores de la pendiente e intercepción de la recta de regresión es mediante las siguientes instrucciones:
+
+```{r}
+
+
+```
+
+```{r}
+
+```
+
+#### Añadir la recta de regresión
+
+Con la función `abline()` se añade la recta de regresión creada con la función `lm()` al diagrama de dispersión. La primera entrada que hay que poner es el nombre de la variable que contiene el modelo, en esta ocasión “model”, y los parámetros adicionales de visualización.
+
+```{r}
+
+
+
+```
+
+#### Coeficientes de determinación (r²) y de correlación (r)
+
+Una vez calculado el modelo lineal, el coeficiente de determinación se visualiza utilizando la función `summary()`. Con este comando se obtienen los parámetros más importantes del modelo. Sin embargo, para este coeficiente nos interesan solamante `multiple R-squared`.
+
+```{r}
+
+```
+
+Por lo tanto, el coeficiente *r* cuadrado múltiple = 0.6256
+
+El coeficiente de correlación de Pearson, que es la raiz cuadrada del coeficiente de determinación, también se puede calcular mediante la función `cor()`.
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+#### Estimación de valores indeterminados
+
+Una de las aplicaciones principales de las regresión es la posibilidad de estimar el valor de la variable dependiente para un determinado valor de la variable independiente. Este recurso es muy útil ya que permite conocer aproximadamente el comportamiento de las dos variables en situaciones sin datos. Para realizar la estimación falta con reemplazar en la fórmula de la recta los valores de: la pendiente, la intercepción y la variable dependiente. Por ejemplo, si se quiere estimar cúal será el valor faltante de los caballos de potencia, sabiendo que ese coche tiene un valor de desplazamiento de $151,$ basta con ejecutar:
+
+```{r}
+
+```
+
+Sin embargo, si se quiere minimizar el error por redondeo y además estimar varios valores, lo mejor que se puede hacer es crear una función utilizando los valores directamente del modelo de la siguiente forma:
+
+```{r}
+
+```
+
+Así, cada vez que se quiera hacer una estimación solo es necesario ejecutar la función creada.
+
+```{r}
+
+
+
+```
+
+O utilizando la función `predict()`
+
+```{r}
+
+
+```
+
+Finalmente, esta estimación se puede representar en la gráfica mediante un punto negro (por ejemplo) mediante la siguiente instrucción:
+```{r}
+
+
+
+```
+
+**Algunos Trucos**
+
+• `lm(y∼x) `crea un modelo lineal entrelas variables x e y.
+
+• `abline()` agrega una línea recta a la gráfica actual, los parámetros más usuales son:
+
+  – `a=A, b=B` definen la intercepción (A) y la pendiente de la recta (B), también
+se puede poner el nombre de la variable que contiene un modelo lineal.
+
+  – `h=H` para definir una linea horizontal en y = H
+
+  – `v=V` para definir una linea vertical en x = V
+
+• `summary()` muestra los resultados del modelo lineal.
+
+• `predict()` genera la predicción para valores nuevos. Estos valores deben organizarse en un data.frame y la variable independiente debe tener el mismo nombre utilizado
+en la creación del modelo.
+
+• `points()` agrega puntos a una gráfica existente.
+
+---
+
+#### Regresión exponencial
+Como se ha visto previamente, si dos variables tienen una relación exponencial, ésta se puede linealizar por medio de logaritmos. Utilizando el dataset `mtcars` la relación entre las variables peso (`wt` (y)) y el consumo (`mp` (x)) se puede observar mediante el diagrama de dispersión. Se puede intuir que la relación tiende a ser más parecida a una exponencial que a una lineal. Por ejemplo, la relación entre las variables `wt` y `mpg`.
+
+```{r}
+
+
+
+```
+
+Entonces, podemos hacer la regresión:
+
+```{r}
+
+
+
+```
+
+
+De estos datos obtenemos que $\ln (\mathrm{mpg})=4.3-0.0004033 \times \mathrm{wt}$, o que $\mathrm{mpg}=e^{4.3} \cdot e^{-0.0004033 \times \mathrm{wt}}$
+Además, r cuadrado múltiple = 0.8002.
+
+Finalmente, queremos estimar los valores de la variable `mpg` respecto a las observaciones de `wt`: `3.053833, 2.629596, 2.673149, 2.619917, 2.747350, 2.947774`. Para ello, utilizamos la ecuación de la regresión y los valores de la variable independiente:
+
+```{r}
+
+
+
+```
+
+```{r}
+
+
+```
+
+Representando gráficamente los datos existentes, el resultado de la regresión y la estimación de los valores no
+registrados, se tiene:
+
+```{r}
+
+
+
+
+
+
+
+
+```
+
+## Ejercicios propuestos
+
+1. Tenemos las siguientes alturas (en $\mathrm{cm}$ ) de un conjunto de personas:
+$$
+178,181,168,183,164,181,174,176,174,176,181,168,164,174,171
+$$
+A este mismo conjunto de personas se les pesa, obteniendo los siguientes pesos:
+$$
+82,89,68,91,65,80,79,81,80,79,82,69,67,80,78
+$$
+Haz un estudio de regresión lineal, calculando la recta de regresión y el coeficiente de determinación, así como realizando el diagrama de dispersión. ¿Qué puedes deducir a partir del valor de r?
+
+2. Estudiando los incendios forestales, deducimos que puede existir una relación entre la cantidad de lluvia caída durante los meses de verano (en $\mathrm{mm}$ )y el número de incendios declarados. Recopilamos la información de los últimos diez años y obtenemos los datos siguientes:
+$$\begin{array}{cc}
+\hline \text { Lluvia } & \text { Incendios } \\
+\hline 97 & 521 \\
+27 & 863 \\
+93 & 712 \\
+175 & 163 \\
+38 & 138 \\
+192 & 811 \\
+28 & 534 \\
+182 & 442 \\
+61 & 963 \\
+77 & 313 \\
+\hline
+\end{array}$$
+A la vista de estos datos, ¿ podríamos hacer una previsión de cual será el número aproximado de fuegos que se declararán con una lluvia de $120 \mathrm{mm}$ ? y de $10 \mathrm{mm}$ ? Explica las conclusiones.
+

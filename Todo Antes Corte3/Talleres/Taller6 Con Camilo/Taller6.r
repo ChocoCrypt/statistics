@@ -1,0 +1,202 @@
+#Este taller lo había hecho para la fecha junto a Camilo Martinez, no sé como será su situación con respecto a este taller pues nunca lo enviamos, sin embargo, lo hicimos juntos.
+
+#aca leemos los datos del csv
+datos = read.csv("hmnist_28_28_L.csv")
+
+# TODOS LOS DATOS
+datosmitad = datos[ ,392] ;datosmitad
+summary(datosmitad)
+boxplot(datosmitad)
+hist(datosmitad)
+
+# TUMORES
+tumores = datos[ datos$label == 1, 392] 
+summary(tumores)
+boxplot(tumores)
+hist(tumores)
+
+# NO TUMORES
+notumores = datos[datos$label != 1 , 392]
+summary(notumores)
+boxplot(notumores)
+hist(notumores)
+
+# STROMA
+stroma = datos[datos$label == 2 , 392]
+summary(stroma)
+boxplot(stroma)
+hist(stroma)
+
+# COMPLEX
+complex = datos[datos$label ==3 , 392]
+summary(complex)
+boxplot(complex)
+hist(complex)
+
+# LYMPHO
+lympho = datos[datos$label ==4 , 392]
+summary(lympho)
+boxplot(lympho)
+hist(lympho)
+
+# DEBRIS
+debris = datos[datos$ label == 5 , 392]
+summary(debris)
+boxplot(debris)
+hist(debris)
+
+# MUCOSA
+mucosa = datos[datos $label ==6 , 392]
+summary(mucosa)
+boxplot(mucosa)
+hist(mucosa)
+
+# ADIPOSE
+adipose= datos[datos $label == 7, 392]
+summary(mucosa)
+boxplot(mucosa)
+hist(mucosa)
+
+#NADA
+nada= datos[datos$label == 8,392]
+summary(nada)
+boxplot(nada)
+hist(nada)
+##                            IMAGENES
+
+
+##                  INTERVALOS   DE   CONFIANZA
+
+#TUMORES
+MediaCancer = mean(tumores) ; 
+IntervaloCancerTop = MediaCancer + qnorm(0.25)  
+IntervaloCancerDown = MediaCancer - qnorm(0.25)  
+Confianza95Cancer = c(IntervaloCancerDown , IntervaloCancerTop) ; 
+
+#STROMA
+MediaStroma = mean(stroma)
+IntervaloStromaTop = MediaStroma + qnorm(0.25) 
+IntervaloStromaDown = MediaStroma - qnorm(0.25)
+Confianza95Stroma = c(IntervaloStromaDown, IntervaloStromaTop) ; 
+
+#COMPLEX
+MediaComplex = mean(complex)
+IntervaloComplex = MediaComplex + qnorm(0.25)
+IntervaloCancerDown = MediaComplex -qnorm(0.25)
+Confianza95Complex = c(IntervaloComplex , IntervaloCancerDown) ; 
+
+#LYMPHO
+MediaLympho = mean(lympho)
+intervaloLympho = MediaLympho + qnorm(0.25)
+IntervaloLymphoDown = MediaLympho - qnorm(0.25)
+Confianza95Lympho = c(intervaloLympho , IntervaloLymphoDown)
+
+
+
+
+#DEBRIS
+MediaDebris = mean(debris)
+Confianza95Debris = c(MediaDebris + qnorm(0.25) ,  MediaDebris - qnorm(0.25))
+
+
+#MUCOSA
+MediaMucosa = mean(mucosa)
+IntervaloMucosaTop = MediaMucosa + qnorm(0.25)
+IntervaloMucosaDown = MediaMucosa - qnorm(0.25)
+Confianza95Mucosa = c(IntervaloMucosaDown, IntervaloMucosaDown)
+#ADIPOSE
+
+MediaAdipose = mean(adipose)
+IntervaloAdiposeTop = MediaAdipose + qnorm(0.25)
+IntervaloAdiposeDown = MediaAdipose - qnorm(0.25)
+Confianza95Adipose = c(IntervaloAdiposeDown , IntervaloAdiposeTop)
+
+
+#NADA
+
+
+
+
+#Punto 4 
+
+
+
+
+
+
+
+datosmitad = datos[ ,392] ;datosmitad
+summary(datosmitad)
+boxplot(datosmitad)
+hist(datosmitad)
+
+# TUMORES
+tumores = datos[ datos$label == 1, 392] 
+tumores= sample(tumores,200)
+summary(tumores)
+boxplot(tumores)
+hist(tumores)
+
+# NO TUMORES
+notumores = datos[datos$label != 1 , 392]
+notumores = sample(notumores,200)
+summary(notumores)
+boxplot(notumores)
+hist(notumores)
+
+# STROMA
+stroma = datos[datos$label == 2 , 392]
+stroma = sample(stroma,200)
+summary(stroma)
+boxplot(stroma)
+hist(stroma)
+
+# COMPLEX
+complex = datos[datos$label ==3 , 392]
+complex = sample(complex,200)
+summary(complex)
+boxplot(complex)
+hist(complex)
+
+# LYMPHO
+lympho = datos[datos$label ==4 , 392]
+lympho = sample(lympho, 200)
+summary(lympho)
+boxplot(lympho)
+hist(lympho)
+
+# DEBRIS
+debris = datos[datos$ label == 5 , 392]
+debris = sample(debris,200)
+summary(debris)
+boxplot(debris)
+hist(debris)
+
+# MUCOSA
+mucosa = datos[datos $label ==6 , 392]
+mucosa = sample(mucosa,200)
+summary(mucosa)
+boxplot(mucosa)
+hist(mucosa)
+
+# ADIPOSE
+adipose= datos[datos $label == 7, 392]
+adipose = sample(adipose, 200)
+summary(mucosa)
+boxplot(mucosa)
+hist(mucosa)
+
+#NADA
+nada= datos[datos$label == 8,392]
+nada = sample(nada,200)
+summary(nada)
+boxplot(nada)
+hist(nada)
+
+
+
+
+
+
+
+

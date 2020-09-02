@@ -1,0 +1,1 @@
+df = read.table("/root/Semestre2020-1/Estadistica/Talleres/Taller3/DataSet1.xls ", header = TRUE)

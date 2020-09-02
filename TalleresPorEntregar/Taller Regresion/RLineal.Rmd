@@ -1,0 +1,91 @@
+
+library(ISLR)
+data(Auto)
+
+
+#Utilice la funcion pairs en R para visualizar los graficos entre todo par de variables
+pairs(Auto)
+
+#seleccione dos campos numeros en los que observe una potencial asociacion positiva o negativa
+
+#displacement y horsepower
+
+#1-grafique un diagrama de dispersion entre estas dos variables
+
+
+displacement = Auto$displacement 
+horsepower = Auto$horsepower
+#soy consciente de que esto es un overkill pero así puedo aplicar las formulas mucho mas rapido
+x = displacement
+y = horsepower
+plot(displacement)
+plot(horsepower)
+
+
+#estime una regresion lineal entre estas dos varialbes
+
+
+#forma prohibida por el taller pero fácil:
+relacion = lm(displacement ~ horsepower)
+
+#summary(relacion)
+
+plot(relacion)
+
+#Forma de hacer la regresion lineal a mano:
+
+sxx = sum((x - sum(x))^2); sxx
+syy = sum((y - sum(y)) )^2
+sxy = sum((x - sum(x))* (y - sum(y))); sxy
+
+B1 =  sxy/sxx ; B1
+B0 =  sum(y) - (B1 * sum(x))
+
+#realice una prueba de hipotesis para determinar si B1 es diferente de 0 o no
+
+x1 = mean(x)
+x2 = mean(y)
+
+s1 = sqrt(var(x))  
+s2 = sqrt(var(y))  
+
+n1 = length(x)
+n2 =  length(y)
+
+
+SE = sqrt(((s1^2)/n1) + ((s2^2)/n2))
+DF = (s1^2/n1 + s2^2/n2)^2 / ( ( (s1^2 / n1)^2 / (n1 - 1) ) + ( (s2^2 / n2)^2 / (n2 - 1) ) )
+
+d = 0
+t = ( (x1 -x1 ) - d)/SE
+t
+
+
+p = pt(t,DF , lower.tail = FALSE) ; p
+#p es muy alto por lo tanto se rechaza la hipótesis nula
+
+#funcion que retorna los intervalos de confianza
+confint(relacion)
+
+
+#intervalo de confianza para el valor esperado:
+
+i1 = mean(x)+qt(0.99,df=n1)*sqrt(var(x))/sqrt(n1)
+i2 = mean(x)-qt(0.99,df=n1-1)*sqrt(var(x))/sqrt(n1)
+
+#comparacion 
+
+comp1 = c(i1, i2)
+cop2 = c(-73.725290 , -47.120941)
+
+#correlacion 
+
+SSE = sum(y - (B0 + (B1 *x)))^2
+
+r = (sxy)/(sqrt(sxx * syy))
+
+R2 = (syy - SSE)/syy  
+
+R2
+
+

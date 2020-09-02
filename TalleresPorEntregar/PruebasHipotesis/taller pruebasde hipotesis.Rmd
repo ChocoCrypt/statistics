@@ -1,0 +1,72 @@
+---
+title: "pruebas hipotesis"
+author: "rodrigo castillo"
+date: "5/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+df  =  read.csv("ks-projects-201801.csv")
+
+
+colnames(df)
+
+#H0 va a ser que la media del valor comprometido sera igual al valor de las propuestas fallidas
+# H0  ES QUE m1 = m2
+# H1 es que m1 != m2
+
+summary(df)
+
+pr = df$usd_pledged_real
+pg = df$usd_goal_real
+
+succesfull =  df[df$state == "successful" , ]
+failed = df[df$state == "failed" ,]
+levels(df$status)
+
+summary(succesfull$usd_pledged_real)
+
+x1 = mean(succesfull$usd_pledged_real)
+x2= mean(failed$usd_pledged_real)
+#ahora hay que hacer una prueba de hipotesis si mediasuc es diferente de media failed
+
+s1 = sqrt(var(succesfull$usd_pledged_real))
+s2 = sqrt(var(failed$usd_pledged_real))
+
+n1 =  length(succesfull$usd_pledged_real)
+n2 =  length(failed$usd_pledged_real)
+
+SE = sqrt(((s1^2)/n1) + ((s2^2)/n2))
+DF = (s1^2/n1 + s2^2/n2)^2 / ( ( (s1^2 / n1)^2 / (n1 - 1) ) + ( (s2^2 / n2)^2 / (n2 - 1) ) )
+estadisticoprueba = (mediasuc - mediafailed)
+
+d = 0
+t = ( (x1 - x2) - d ) / SE
+
+ p = pt(t , DF , lower.tail = FALSE) ; p
+ 
+ #
+colnames(df)

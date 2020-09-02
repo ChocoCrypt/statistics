@@ -1,0 +1,19 @@
+es una regresion lineal, hay que hacer la regresion lineal vamos a hacer lo mismo pero LN(Probabilidad)
+
+entonces vamos a usar una ecuacion diferencial y por el metodo de maxima verosimilitud 
+
+preguntarle a edwin que funcion es la que tengo que optimizar
+
+
+hay una ecuacion que hay que diferenciar, teniendo los datos hay que optimizar para calcular los betas que se acoplan a esos datos
+
+no es un problema lineal
+, lo juntan con el problema lneal
+
+el paper no dice el método numérico
+
+no da los valores iniciales
+
+cuano tenga los betas y el numero no se estalle, entonces imprimo:
+
+el p, 

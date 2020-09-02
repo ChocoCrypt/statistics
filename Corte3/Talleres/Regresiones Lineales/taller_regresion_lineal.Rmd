@@ -1,0 +1,152 @@
+ q q---
+title: "Ejemplo de regresión lineal simple con R"
+author: "Santiago Alférez"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### En R cargue los datos `mtcars` (mediante `data(mtcars)`) y utilícelos para realizar los siguientes ejercicios. Realice todos los cálculos usando las expresiones que dependen de $S_{xx}$, $S_{xy}$ y $S_{yy}$ (es decir, sin utilizar comandos directos de R, como `lm`).
+
+```{r}
+data("mtcars")
+```
+
+#### 1. Estudie y asegúrese de entender todos los campos.
+
+```{r}
+?mtcars # muestra la información completa en la ventana de Help
+```
+#### 2. Calcule estadísticas descriptivas de cada campo. 
+
+```{r}
+summary(mtcars)
+```
+
+
+#### 3. Considere los campos `mpg` y `hp`. 
+
+####	- Grafique un diagrama de dispersión de estas dos variables. 
+```{r}
+x = mtcars$hp
+y = mtcars$mpg
+plot(x, y, main="Scatterplot", 
+   xlab="Horse power ", ylab="Miles Per Gallon ", pch=19)
+```
+
+
+#### - Estime un modelo de regresión lineal entre estas dos variables, dejando a la variable `hp` como variable independiente. Determine el valor de $\hat\beta_0$ y $\hat\beta_1$. 
+
+Utilizaremos las formulas básicas para calcular los coeficientes: $\beta_1=S_{xy}/S_{xx}$ y $\beta_2=\bar{y}-\beta_1 \bar{x}$
+
+```{r}
+Sxx = sum( (x-mean(x))^2 )
+Sxy = sum(  (x-mean(x))*(y-mean(y)) )
+beta1 = Sxy/Sxx
+beta0 = mean(y)-beta1*mean(x)
+
+# Imprime resultados
+cat("beta0 =",beta0, "\n")
+cat("beta1 =",beta1)
+
+```
+####	- Realice una prueba de hipótesis para determinar si $\beta_1$ es diferente de 0 o no. 
+Para determinar la prueba de hipótesis referente a $H_0: \beta_1=0$ determinaremos el estadístico de prueba $t = \frac{\beta_1-0}{S/\sqrt{S_{xx}}}$
+
+```{r}
+Syy = sum( (y-mean(y))^2 )
+SSE = Syy-beta1*Sxy # Suma cuadrática de errores
+S2 = SSE/(length(x)-2) # Estimación de la varianza del error (o de Y)
+S = sqrt(S2)
+
+t = beta1/(S/sqrt(Sxx))
+cat("El estadístico de prueba es t =", t)
+
+```
+
+Cómo el estadístico es negativo, podemos determinar el valor-p mediante:
+```{r}
+pvalue = pt(t,df=length(x)-2)
+cat("El valor-p es pvalue =", pvalue)
+```
+
+De esta forma es altamente probable rechazar la hipótesis nula y se apoya la hipótesis alternativa de que el coeficiente $\beta_1$ es diferente de cero.
+
+#### - Construya un intervalo de confianza para $\beta_1$. 
+El intervalo de confianza para $\beta1$ se puede determinar mediante $\beta_1 \pm t_{\alpha/2} S/\sqrt{S_{xx}}$. Suponiendo un $\alpha=0.05$, se calcula el intervalo mediante:
+
+```{r}
+delta_beta1 = qt(0.025, length(x)-2) * S/sqrt(Sxx)
+IC = c(beta1-delta_beta1, beta1+delta_beta1)
+
+cat("El intervalo de confianza al 95% para beta1 es IC =", IC)
+```
+####	- Concluya sobre el valor de $\beta_1$ en el contexto del problema. 
+Se ha mostrado estadísticamente que existe una relación entre la variable `mpg` y `hp` porque la pendiente es diferente de cero. Además, la relación entre las millas por galon y la potencia consumida es negativa ($\beta_1<0$). El valor de $\beta1=-0.068$ y se encuentra con un 95% de confianza dentro del intervalo $[-0.0475619, -0.08889465]$.
+
+
+---
+
+
+#### *De forma similar a los procedimientos anteriores, se puede determinar $\beta_0$, realizar la prueba de hipótesis acerca del valor del coeficiente (respecto a cero) y calcular su intervalo de confianza, para resolver los puntos siguientes*.
+
+#####	- Realice una prueba de hipótesis para determinar si $\beta_0$ es diferente de 0 o no. 
+
+#####	- Construya un intervalo de confianza para $\beta_0$.
+#####	- Concluya sobre el valor de $\beta_0$ en el contexto del problema.
+
+
+---
+
+### Una forma de evaluar la exactitud del modelo de regresión
+
+Existen varias formas de evaluar que tanto se ajusta nuestro modelo a los datos, la bondad de ajuste o calidad de la regresión la determinan normalmente el coeficiente de determinación $\left(r^{2}\right)$ o el coeficiente de correlación $(r)$. Estos números característicos de cada regresión indican lo bien que se ajusta la línea a los datos. Por ejemplo, $R^{2}=0.85$ quiere decir que el $85 \%$ de la variación total en y se puede explicar por la relación lineal entre $x$ e $y$. En consecuencia, cuanto más se acerque al $1,$ mejor se ajustará a los valores. En ese caso, la línea pasa exactamente por cada punto y es capaz de detallar toda la variación. Cuanto más lejos esté de los puntos, peor será la aproximación. El coeficiente de determinación es la relación entre la variabilidad explicada por la regresión y la variabilidad total. Se calcula mediante la siguiente fórmula:
+$$r² = \left( \frac{\hat{\beta_1}  S_{xy}}{S_{yy}} \right)=1-\frac{SSE}{S_{yy}}$$
+donde $\hat{y}_{i}$ es la estimación del valor de $y_{i}$.
+
+####	- Estime la correlación entre estas dos variables.
+La correlación se puede determinar a partir de $r=\beta_1 \sqrt{\frac{S_{xx}}{S_{yy}}}$:
+```{r}
+r = beta1 * sqrt(Sxx/Syy)
+cat("El coeficiente de correlación es r = ", r)
+```
+#### Todos los cálculos anteriores se pueden realizar mediante la instrucción `lm` de R:
+
+```{r}
+reg = lm(y~x)
+summary(reg)
+```
+Con `summary()` podemos ver los valores de los coeficientes estimados, su error estándar, el valor del estadístico de prueba para la hipótesis nula del valor de coeficiente igual a cero, y el valor-p respectivo. También se puede ver el coeficiente de determinación $r^2$.
+
+El intervalo de confianza al 95% se puede visualizar mediante:
+```{r}
+confint(reg, level=0.95)
+```
+
+
+
+#### - Realice la predicción para *el valor* de *mpg* cuando *hp* es igual a 200. 
+
+La predicción se puede realizar utilizando la ecuación de regresión
+
+
+```{r}
+(y_pred = beta0 + beta1*200)
+
+```
+ 
+Una forma de calcular directamente con R es usando la instrucción `predict.lm`, con la opción de `interval = "prediction"`:
+```{r}
+new = data.frame(x=200) # Note que hay que definir un dataframe, aunque sea para un solo valor
+predict(reg, new)
+```
+Finalmente, para graficar la recta de regresión sobre los puntos de datos, se puede usar:
+```{r}
+plot(x,y)
+abline(reg, col="red")
+```
+
